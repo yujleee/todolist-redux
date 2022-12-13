@@ -16,12 +16,13 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  width: 300px;
+  // prop.isEdit은 수정중일 때의 input
+  width: ${(props) => (props.isEdit ? '94%' : '260px')};
   height: 36px;
   border: 1px solid #ccc;
   padding: 0 10px;
-  margin-right: 1.2rem;
-  font-size: 0.98rem;
+  margin-right: ${(props) => (props.isEdit ? '0' : '1.2rem')};
+  font-size: ${(props) => (props.isEdit ? '0.94rem' : '0.98rem')};
   border-radius: 4px;
 
   &.contents {

@@ -11,57 +11,105 @@ export const TodoItemWrap = styled.li`
 `;
 
 export const Title = styled.h1`
+  width: 100%;
   font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Text = styled.p`
-  height: 50px;
-  position: relative;
+  // isEdit은 수정중일 때
+  height: ${(props) => (props.isEdit ? 'auto' : '50px')};
   margin: 4px 0 1.4rem;
-  padding: 0 2.5rem 0 0.4rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding: 0 0.4rem;
+  overflow: ${(props) => props.isEdit ?? 'hidden'};
+  text-overflow: ${(props) => props.isEdit ?? 'ellipsis'};
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: ${(props) => props.isEdit ?? '2'};
   -webkit-box-orient: vertical;
   color: #232323;
   font-size: 0.94rem;
+
+  textarea {
+    padding-right: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.94rem;
+    padding: 10px;
+  }
 `;
 
 export const More = styled.span`
   position: absolute;
-  bottom: 0;
-  right: 0;
+  left: 0;
+  bottom: 2px;
   font-size: 0.94rem;
   color: #7d6bf2;
   cursor: pointer;
 
   &:hover {
     font-weight: 700;
+    color: #4b1df2;
   }
 `;
 
 export const ButtonWrap = styled.div`
+  position: relative;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 `;
 
 export const Button = styled.button`
+  // 버튼 타입이 done(완료), backward(뒤로가기)일때만 다르게 스타일 적용
   width: 50px;
   height: 30px;
+  font-weight: 600;
   background-color: ${(props) => {
     switch (props.type) {
-      case 'edit':
-        return 'transparent';
-      case 'delete':
-        return 'transparent';
-      default:
+      case 'done':
+      case 'backward':
         return '#7d6bf2';
+      default:
+        return 'transparent';
     }
   }};
-  border: ${(props) => (props.type !== 'done' ? '1px solid #4B1DF2' : 'none')};
-  color: ${(props) => (props.type === 'done' ? '#fff' : '#4B1DF2')};
+  border: ${(props) => (props.type === 'done' || props.type === 'backward' ? 'none' : '1px solid #4B1DF2')};
+  color: ${(props) => {
+    switch (props.type) {
+      case 'done':
+      case 'backward':
+        return '#fff';
+      default:
+        return '#4B1DF2';
+    }
+  }};
   border-radius: 4px;
   margin-right: ${(props) => (props.type === 'done' ? '0' : '8px')};
+
+  &:hover {
+    color: ${(props) => {
+      switch (props.type) {
+        case 'done':
+        case 'backward':
+          return '#fff';
+        default:
+          return '#4218d9';
+      }
+    }};
+
+    background-color: ${(props) => {
+      switch (props.type) {
+        case 'done':
+        case 'backward':
+          return '#4218d9';
+        default:
+          return 'transparent';
+      }
+    }};
+
+    border: ${(props) => (props.type === 'done' || props.type === 'backward' ? 'none' : '1px solid #4218d9')};
+  }
 `;

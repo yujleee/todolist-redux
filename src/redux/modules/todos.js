@@ -50,7 +50,13 @@ const initialState = [
   {
     id: uuid(),
     title: '장보기',
-    content: '살 것: 계란, 우유, 대파, 양파, 파스타 면, 토마토 소스, 새송이버섯, 딸기잼, 식빵 ',
+    content: '살 것: 계란, 우유, 대파, 양파, 파스타 면, 토마토 소스, 새송이버섯, 딸기잼, 식빵, 무염버터, 간식거리 ',
+    isDone: true,
+  },
+  {
+    id: uuid(),
+    title: '리액트 숙련 과제',
+    content: 'redux, react-router-dom, styled-components 이용해서 투두리스트 만들기',
     isDone: true,
   },
 ];
@@ -58,7 +64,7 @@ const initialState = [
 // 리듀서
 const todos = (state = initialState, action) => {
   switch (action.type) {
-    // 추가할 때
+    // 투두 추가
     case ADD_TODO:
       return [
         ...state,
@@ -70,7 +76,7 @@ const todos = (state = initialState, action) => {
         },
       ];
 
-    // 완료/취소 토글
+    // 투두 완료/취소 토글
     case TOGGLE_DONE: {
       const newState = state.map((item) => {
         return item.id === action.payload.id
@@ -83,12 +89,12 @@ const todos = (state = initialState, action) => {
       return newState;
     }
 
-    // 삭제
+    // 투두 삭제
     case DELETE_TODO: {
       return state.filter((item) => item.id !== action.payload.id);
     }
 
-    // 수정
+    // 투두 수정
     case UPDATE_TODO: {
       const newState = state.map((item) => {
         return item.id === action.payload.id

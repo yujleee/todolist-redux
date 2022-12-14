@@ -1,70 +1,117 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 📓 Todolist with Redux
 
-## Available Scripts
+![투두리스트](https://user-images.githubusercontent.com/82587107/207487927-f4287995-94b3-4211-8b2a-acc757576d83.png)
 
-In the project directory, you can run:
 
-### `yarn start`
+🔗  [배포 URL](https://todolist-redux-theta.vercel.app/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* 리덕스를 이용해서 상태관리하는 투두리스트
+* 진행기간 : 2022.12.12~13
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `yarn test`
+<br/>
+<br/>
+<br/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🖥 기술 스택
 
-### `yarn build`
+`React` `Redux` `react-router-dom` `Styled-Components`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br/>
+<br/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## 🗂 디렉토리 구조
+```
+📦src
+ ┣ 📂components
+ ┃ ┣ 📂header
+ ┃ ┣ 📂todoDetail
+ ┃ ┣ 📂todoForm
+ ┃ ┣ 📂todoItem
+ ┃ ┃ ┣ 📜Buttons.jsx
+ ┃ ┃ ┣ 📜TodoItem.jsx
+ ┃ ┃ ┗ 📜style.js
+ ┃ ┣ 📂todoList
+ ┃ ┣ 📜Container.js
+ ┃ ┗ 📜GlobalStyle.js
+ ┣ 📂pages
+ ┣ 📂redux
+ ┃ ┣ 📂config
+ ┃ ┗ 📂modules
+ ┣ 📂shared
+ ┃ ┗ 📜Router.js
+ ┣ 📜App.css
+ ┣ 📜App.jsx
+ ┣ 📜App.test.js
+ ┣ 📜index.css
+ ┗ 📜index.js
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* components
+  - header : 헤더 관련 컴포넌트
+  - todoDetail : 상세페이지 관련 컴포넌트
+  - todoForm : 투두 추가 관련 컴포넌트
+  - todoItem : 투두 관련 컴포넌트
+    - Buttons : 버튼 컴포넌트 (삭제, 완료, 뒤로 등 사용이 많은 컴포넌트라 별도로 분리)
+  - todoList : 투두리스트 관련 컴포넌트
+  - Container.js : 정렬용 레이아웃 컴포넌트
+  - GlobalStyle.js : 전체적인 CSS 설정 컴포넌트
+* pages : 페이지 컴포넌트들
+* redux : 리덕스 관련 설정, 모듈 파일들
+* shared : 라우터 설정 파일
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br/>
+<br/>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## 💡 구현 기능
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* 투두 작성
+* 투두 조회
+* 투두 상세페이지 이동
+* 투두 완료/취소 토글
+* 투두 수정
+* 투두 삭제
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+<br/>
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+## 🤔 고민한 점
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 👀 map 메서드 리턴 값에 고유 key 매핑
+![image](https://user-images.githubusercontent.com/82587107/207489227-730d928d-d485-4959-b2f4-8c097b5431c7.png)![image](https://user-images.githubusercontent.com/82587107/207492839-e9f863ea-e727-4185-943e-34901ccac2a5.png)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+index나 todo의 length를 key로 매핑했을 때, 투두를 삭제되고 다시 추가하는 경우 key가 꼬일 수 있습니다. <br/>
+고유 key를 매핑해주기 위해 `uuid` 라이브러리를 사용하여 투두가 삭제되어도 key에 영향이 가지 않도록 했습니다.
 
-### Advanced Configuration
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 👀 Button 컴포넌트의 재사용
+![image](https://user-images.githubusercontent.com/82587107/207491268-1f6c30f9-434b-44a3-bf21-36e8d54de11e.png)
 
-### Deployment
+삭제, 완료, 취소 등에 쓰인 Button 컴포넌트는 각각의 투두에 해당하는 TodoItem 컴포넌트만큼 많이 사용되고 있는 컴포넌트입니다. <br/>
+Button 컴포넌트를 재사용하기 위해 각각 클래스를 넣어주기 보다 props를 이용했습니다. <br/>
+props로 넘기는 값중 `type`에 따라 다른 배경색, 테두리 색, 폰트 색상 등을 스타일링 할 수 있도록 했습니다. <br/>
+또한 `type`은 Button 컴포넌트의 클릭 시 실행되는 함수를 결정하는 데도 사용됩니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<br/>
+<br/>
+<br/>
+<br/>
 
-### `yarn build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📑 관련 기록
+
+🔗 [React onClick에 함수 넘길 때의 매개변수 처리](https://i-ten.tistory.com/242)
+
+
+<br/>
+<br/>
+

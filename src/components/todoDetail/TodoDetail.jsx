@@ -21,7 +21,7 @@ const TodoDetail = ({ id, title, content, isDone }) => {
 
   // 이전 페이지 이동 핸들러
   const previousPageHanlder = () => {
-    navigate(-1, true);
+    navigate(-1);
   };
 
   // 투두 수정 핸들러
@@ -40,10 +40,10 @@ const TodoDetail = ({ id, title, content, isDone }) => {
 
       dispatch(
         updateTodo({
-          id: id,
+          id,
           title: newTitle,
           content: newContent,
-          isDone: isDone,
+          isDone,
         })
       );
     }

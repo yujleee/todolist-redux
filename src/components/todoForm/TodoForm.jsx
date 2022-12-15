@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { HiddenTitle } from '../Container';
@@ -8,6 +8,8 @@ import { FormWrap, Label, Input, Button } from './style';
 const TodoForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const titleInput = useRef();
+  const contentInput = useRef();
   const dispatch = useDispatch();
 
   // 제목 입력값 상태 변화
@@ -24,8 +26,16 @@ const TodoForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    // 제목이나 내용이 없는 경우 경고 띄워주고 focus
     if (!title || !content) {
-      alert('제목과 내용을 입력해주세요.');
+      if (!title) {
+        alert('제목을 입력해주세요.');
+        titleInput.current.focus();
+      } else {
+        alert('내용을 입력해주세요.');
+        contentInput.current.focus();
+      }
+
       return false;
     }
 
@@ -48,7 +58,7 @@ const TodoForm = () => {
       <HiddenTitle>투두 입력</HiddenTitle>
       <form onSubmit={submitHandler}>
         <Label htmlFor="title">제목</Label>
-        <Input type="text" placeholder="제목" id="title" value={title} onChange={changeTitleHandler} />
+        <Input type="text" placeholder="제목" id="title" value={title} onChange={changeTitleHandler} ref={titleInput} />
         <Label htmlFor="contents">내용</Label>
         <Input
           className="contents"
@@ -57,6 +67,7 @@ const TodoForm = () => {
           id="contents"
           value={content}
           onChange={changeContentHandler}
+          ref={contentInput}
         />
         <Button>추가</Button>
       </form>

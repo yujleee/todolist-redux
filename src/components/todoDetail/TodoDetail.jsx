@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +13,8 @@ const TodoDetail = ({ id, title, content, isDone }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
+  const newTitleInput = useRef();
+  const newContentInput = useRef();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,7 +28,13 @@ const TodoDetail = ({ id, title, content, isDone }) => {
   const editTodoHandler = () => {
     if (isEdit) {
       if (!newTitle || !newContent) {
-        alert('제목과 내용을 입력해주세요.');
+        if (!newTitle) {
+          alert('제목을 입력해주세요.');
+          newTitleInput.current.focus();
+        } else {
+          alert('내용을 입력해주세요.');
+          newContent.current.focus();
+        }
         return false;
       }
 
@@ -58,6 +66,7 @@ const TodoDetail = ({ id, title, content, isDone }) => {
             id="title"
             value={newTitle}
             onChange={(event) => setNewTitle(event.target.value)}
+            ref={newTitleInput}
           />
         )}
       </Title>
@@ -68,6 +77,7 @@ const TodoDetail = ({ id, title, content, isDone }) => {
             placeholder={newContent}
             value={newContent}
             onChange={(event) => setNewContent(event.target.value)}
+            ref={newContentInput}
             rows={5}
             cols={28}
           />

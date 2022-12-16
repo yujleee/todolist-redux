@@ -4,7 +4,7 @@ import Buttons from './Buttons';
 import { TodoItemWrap, Title, Text, More, ButtonWrap } from './style';
 import { toggleDone, deleteTodo } from '../../redux/modules/todos';
 
-const TodoItem = ({ id, title, content, isDone }) => {
+const TodoItem = ({ item }) => {
   const dispatch = useDispatch();
 
   // 투두 완료/취소 토글 핸들러
@@ -21,14 +21,14 @@ const TodoItem = ({ id, title, content, isDone }) => {
 
   return (
     <TodoItemWrap>
-      <Title>📍 {title}</Title>
-      <Text>{content}</Text>
+      <Title>📍 {item.title}</Title>
+      <Text>{item.content}</Text>
       <ButtonWrap>
-        <Link to={`/todos/${id}`}>
+        <Link to={`/${item.id}`}>
           <More>상세보기</More>
         </Link>
-        <Buttons onDelete={deleteTodoHandler} id={id} type={'delete'} name={'삭제'} />
-        <Buttons onToggle={toggleDoneHandler} id={id} type={'done'} name={isDone ? '취소' : '완료'} />
+        <Buttons onDelete={deleteTodoHandler} id={item.id} type={'delete'} name={'삭제'} />
+        <Buttons onToggle={toggleDoneHandler} id={item.id} type={'done'} name={item.isDone ? '취소' : '완료'} />
       </ButtonWrap>
     </TodoItemWrap>
   );

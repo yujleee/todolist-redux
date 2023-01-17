@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
+
 import TodoItem from '../todoItem/TodoItem';
 import { TodoListWrap, TodoTitle, List } from './style';
 
 const TodoList = ({ isActive }) => {
-  const todos = useSelector((state) => state.todos);
+  const { todos } = useSelector((state) => state.todos);
 
   // isActive에 따라 진행중, 완료중 나누어 렌더링
   return (

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Buttons from './Buttons';
 import { TodoItemWrap, Title, Text, More, ButtonWrap } from './style';
-import { toggleDone, deleteTodo } from '../../redux/modules/todos';
+import { toggleDone, deleteTodo } from '../../redux/modules/todoSlice';
 
 const TodoItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -28,7 +28,12 @@ const TodoItem = ({ item }) => {
           <More>상세보기</More>
         </Link>
         <Buttons onDelete={deleteTodoHandler} id={item.id} type={'delete'} name={'삭제'} />
-        <Buttons onToggle={toggleDoneHandler} id={item.id} type={'done'} name={item.isDone ? '취소' : '완료'} />
+        <Buttons
+          onToggle={toggleDoneHandler}
+          id={item.id}
+          type={'done'}
+          name={item.isDone ? '취소' : '완료'}
+        />
       </ButtonWrap>
     </TodoItemWrap>
   );

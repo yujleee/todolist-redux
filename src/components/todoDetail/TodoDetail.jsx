@@ -1,13 +1,12 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
 import { DetailWrap, IdWrap } from './style';
 import { Text, Title } from '../todoItem/style';
 import { ButtonWrap } from '../todoItem/style';
 import { Input } from '../todoForm/style';
 import Buttons from '../todoItem/Buttons';
-import { updateTodo } from '../../redux/modules/todos';
+import { updateTodo } from '../../redux/modules/todoSlice';
 
 const TodoDetail = ({ id, title, content, isDone }) => {
   const [isEdit, setIsEdit] = useState(false);

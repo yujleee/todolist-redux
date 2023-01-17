@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import TodoDetail from '../components/todoDetail/TodoDetail';
 
 const Detail = () => {
-  const todos = useSelector((state) => state.todos);
+  const { todos } = useSelector((state) => state.todos);
   const param = useParams();
 
   // id와 일치하는 투두 찾기

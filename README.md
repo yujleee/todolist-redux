@@ -113,6 +113,10 @@ props로 넘기는 값중 `type`에 따라 다른 배경색, 테두리 색, 폰�
 
 🔗 [React onClick에 함수 넘길 때의 매개변수 처리](https://i-ten.tistory.com/242)
 
+🔗 [Redux-toolkit 투두리스트를 TS로 마이그레이션하며 발생한 오류모음 (1)](https://i-ten.tistory.com/278)
+
+🔗 [Redux-toolkit 투두리스트를 TS로 마이그레이션하며 발생한 오류모음 (2)](https://i-ten.tistory.com/279)
+
 
 <br/>
 <br/>

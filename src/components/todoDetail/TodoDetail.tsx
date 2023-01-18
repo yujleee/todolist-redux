@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useRef, FunctionComponent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DetailWrap, IdWrap } from './style';
 import { Text, Title } from '../todoItem/style';
@@ -7,16 +6,18 @@ import { ButtonWrap } from '../todoItem/style';
 import { Input } from '../todoForm/style';
 import Buttons from '../todoItem/Buttons';
 import { updateTodo } from '../../redux/modules/todoSlice';
+import { useAppDispatch } from '../../hooks/useRedux';
+import { TodoType } from '../todoForm/TodoForm';
 
-const TodoDetail = ({ id, title, content, isDone }) => {
-  const [isEdit, setIsEdit] = useState(false);
-  const [newTitle, setNewTitle] = useState(title);
-  const [newContent, setNewContent] = useState(content);
-  const newTitleInput = useRef();
-  const newContentInput = useRef();
+const TodoDetail: FunctionComponent<TodoType> = ({ id, title, content, isDone }: TodoType) => {
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [newTitle, setNewTitle] = useState<string>(title);
+  const [newContent, setNewContent] = useState<string>(content);
+  const newTitleInput = useRef<HTMLInputElement>(null);
+  const newContentInput = useRef<HTMLTextAreaElement>(null);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // 이전 페이지 이동 핸들러
   const previousPageHanlder = () => {
@@ -29,12 +30,12 @@ const TodoDetail = ({ id, title, content, isDone }) => {
       if (!newTitle || !newContent) {
         if (!newTitle) {
           alert('제목을 입력해주세요.');
-          newTitleInput.current.focus();
+          newTitleInput?.current?.focus();
         } else {
           alert('내용을 입력해주세요.');
-          newContent.current.focus();
+          newContentInput?.current?.focus();
         }
-        return false;
+        return;
       }
 
       dispatch(
@@ -83,8 +84,8 @@ const TodoDetail = ({ id, title, content, isDone }) => {
         )}
       </Text>
       <ButtonWrap>
-        <Buttons onEdit={editTodoHandler} id={id} type={'edit'} name={'수정'} />
-        <Buttons onBack={previousPageHanlder} type={'backward'} name={'뒤로'} />
+        <Buttons onEdit={editTodoHandler} id={id} types={'edit'} name={'수정'} />
+        <Buttons onBack={previousPageHanlder} types={'backward'} name={'뒤로'} />
       </ButtonWrap>
     </DetailWrap>
   );

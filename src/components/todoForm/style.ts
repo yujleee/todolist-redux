@@ -15,7 +15,7 @@ export const Label = styled.label`
   vertical-align: middle;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ isEdit: boolean }>`
   // prop.isEdit은 수정중일 때의 input
   width: ${(props) => (props.isEdit ? '94%' : '260px')};
   height: 36px;

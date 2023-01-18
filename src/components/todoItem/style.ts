@@ -18,15 +18,15 @@ export const Title = styled.h1`
   text-overflow: ellipsis;
 `;
 
-export const Text = styled.p`
+export const Text = styled.p<{ isEdit: boolean | null }>`
   // isEdit은 수정중일 때
   height: ${(props) => (props.isEdit ? 'auto' : '50px')};
   margin: 4px 0 1.4rem;
   padding: 0 0.4rem;
-  overflow: ${(props) => props.isEdit ?? 'hidden'};
-  text-overflow: ${(props) => props.isEdit ?? 'ellipsis'};
+  overflow: ${(props) => (props.isEdit ? 'hidden' : '')};
+  text-overflow: ${(props) => (props.isEdit ? 'ellipsis' : '')};
   display: -webkit-box;
-  -webkit-line-clamp: ${(props) => props.isEdit ?? '2'};
+  -webkit-line-clamp: ${(props) => (props.isEdit ? '2' : '')};
   -webkit-box-orient: vertical;
   color: #232323;
   font-size: 0.94rem;
@@ -62,13 +62,13 @@ export const ButtonWrap = styled.div`
   align-items: center;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{ types: string }>`
   // 버튼 타입이 done(완료), backward(뒤로가기)일때만 다르게 스타일 적용
   width: 50px;
   height: 30px;
   font-weight: 600;
   background-color: ${(props) => {
-    switch (props.type) {
+    switch (props.types) {
       case 'done':
       case 'backward':
         return '#7d6bf2';
@@ -76,9 +76,10 @@ export const Button = styled.button`
         return 'transparent';
     }
   }};
-  border: ${(props) => (props.type === 'done' || props.type === 'backward' ? 'none' : '1px solid #4B1DF2')};
+  border: ${(props) =>
+    props.types === 'done' || props.types === 'backward' ? 'none' : '1px solid #4B1DF2'};
   color: ${(props) => {
-    switch (props.type) {
+    switch (props.types) {
       case 'done':
       case 'backward':
         return '#fff';
@@ -87,11 +88,11 @@ export const Button = styled.button`
     }
   }};
   border-radius: 4px;
-  margin-right: ${(props) => (props.type === 'done' ? '0' : '8px')};
+  margin-right: ${(props) => (props.types === 'done' ? '0' : '8px')};
 
   &:hover {
     color: ${(props) => {
-      switch (props.type) {
+      switch (props.types) {
         case 'done':
         case 'backward':
           return '#fff';
@@ -101,7 +102,7 @@ export const Button = styled.button`
     }};
 
     background-color: ${(props) => {
-      switch (props.type) {
+      switch (props.types) {
         case 'done':
         case 'backward':
           return '#4218d9';
@@ -110,6 +111,7 @@ export const Button = styled.button`
       }
     }};
 
-    border: ${(props) => (props.type === 'done' || props.type === 'backward' ? 'none' : '1px solid #4218d9')};
+    border: ${(props) =>
+      props.types === 'done' || props.types === 'backward' ? 'none' : '1px solid #4218d9'};
   }
 `;

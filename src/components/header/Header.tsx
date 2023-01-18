@@ -1,6 +1,7 @@
+import { FunctionComponent } from 'react';
 import { HeaderWrap } from './style';
 
-const Header = () => {
+const Header: FunctionComponent = () => {
   return (
     <HeaderWrap>
       <h1>Todo List</h1>

@@ -1,10 +1,15 @@
-import { useSelector } from 'react-redux';
+import { FunctionComponent } from 'react';
+import { useAppSelector } from '../../hooks/useRedux';
 
 import TodoItem from '../todoItem/TodoItem';
 import { TodoListWrap, TodoTitle, List } from './style';
 
-const TodoList = ({ isActive }) => {
-  const { todos } = useSelector((state) => state.todos);
+interface PropsType {
+  isActive: boolean;
+}
+
+const TodoList: FunctionComponent<PropsType> = ({ isActive }: PropsType) => {
+  const { todos } = useAppSelector((state) => state.todos);
 
   // isActive에 따라 진행중, 완료중 나누어 렌더링
   return (

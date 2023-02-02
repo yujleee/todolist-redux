@@ -5,9 +5,9 @@ import { Text, Title } from '../todoItem/style';
 import { ButtonWrap } from '../todoItem/style';
 import { Input } from '../todoForm/style';
 import Buttons from '../todoItem/Buttons';
-import { updateTodo } from '../../redux/modules/todoSlice';
-import { useAppDispatch } from '../../hooks/useRedux';
 import { TodoType } from '../todoForm/TodoForm';
+import { useRecoilState } from 'recoil';
+import { todoState } from '../../recoil/todo';
 
 const TodoDetail: FunctionComponent<TodoType> = ({ id, title, content, isDone }: TodoType) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -17,7 +17,7 @@ const TodoDetail: FunctionComponent<TodoType> = ({ id, title, content, isDone }:
   const newContentInput = useRef<HTMLTextAreaElement>(null);
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const [todos, setTodos] = useRecoilState<TodoType[]>(todoState);
 
   // 이전 페이지 이동 핸들러
   const previousPageHanlder = () => {
@@ -25,7 +25,7 @@ const TodoDetail: FunctionComponent<TodoType> = ({ id, title, content, isDone }:
   };
 
   // 투두 수정 핸들러
-  const editTodoHandler = () => {
+  const editTodoHandler = (id: string) => {
     if (isEdit) {
       if (!newTitle || !newContent) {
         if (!newTitle) {
@@ -38,14 +38,17 @@ const TodoDetail: FunctionComponent<TodoType> = ({ id, title, content, isDone }:
         return;
       }
 
-      dispatch(
-        updateTodo({
-          id,
-          title: newTitle,
-          content: newContent,
-          isDone,
-        })
-      );
+      const newState = todos.map((item) => {
+        return item.id === id
+          ? {
+              ...item,
+              title: newTitle,
+              content: newContent,
+            }
+          : item;
+      });
+
+      setTodos(newState);
     }
 
     setIsEdit(!isEdit);
@@ -84,7 +87,7 @@ const TodoDetail: FunctionComponent<TodoType> = ({ id, title, content, isDone }:
         )}
       </Text>
       <ButtonWrap>
-        <Buttons onEdit={editTodoHandler} id={id} types={'edit'} name={'수정'} />
+        <Buttons onEdit={() => editTodoHandler(id)} types={'edit'} name={'수정'} />
         <Buttons onBack={previousPageHanlder} types={'backward'} name={'뒤로'} />
       </ButtonWrap>
     </DetailWrap>

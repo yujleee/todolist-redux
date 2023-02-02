@@ -1,27 +1,39 @@
 import { Link } from 'react-router-dom';
 import Buttons from './Buttons';
 import { TodoItemWrap, Title, Text, More, ButtonWrap } from './style';
-import { toggleDone, deleteTodo } from '../../redux/modules/todoSlice';
-import { useAppDispatch } from '../../hooks/useRedux';
 import { TodoType } from '../todoForm/TodoForm';
 import { FunctionComponent } from 'react';
+import { useRecoilState } from 'recoil';
+import { todoState } from '../../recoil/todo';
 
 interface ItemProps {
   item: TodoType;
 }
 
 const TodoItem: FunctionComponent<ItemProps> = ({ item }: ItemProps) => {
-  const dispatch = useAppDispatch();
+  const [todos, setTodos] = useRecoilState<TodoType[]>(todoState);
 
   // 투두 완료/취소 토글 핸들러
   const toggleDoneHandler = (id: string) => {
-    dispatch(toggleDone({ id }));
+    const newState = todos.map((item) => {
+      return item.id === id
+        ? {
+            ...item,
+            isDone: !item.isDone,
+          }
+        : item;
+    });
+
+    setTodos(newState);
+    // dispatch(toggleDone({ id }));
   };
 
   // 투두 삭제 핸들러
   const deleteTodoHandler = (id: string) => {
     if (window.confirm('해당 투두를 정말 삭제하시겠습니까?')) {
-      dispatch(deleteTodo({ id }));
+      const newTodos = todos.filter((todo) => todo.id !== id);
+      setTodos(newTodos);
+      //   dispatch(deleteTodo({ id }));
     }
   };
 

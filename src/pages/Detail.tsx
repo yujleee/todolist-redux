@@ -1,9 +1,12 @@
 import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import TodoDetail from '../components/todoDetail/TodoDetail';
-import { useAppSelector } from '../hooks/useRedux';
+import { TodoType } from '../components/todoForm/TodoForm';
+
+import { todoState } from '../recoil/todo';
 
 const Detail = () => {
-  const { todos } = useAppSelector((state) => state.todos);
+  const todos = useRecoilValue<TodoType[]>(todoState);
   const param = useParams();
 
   // id와 일치하는 투두 찾기

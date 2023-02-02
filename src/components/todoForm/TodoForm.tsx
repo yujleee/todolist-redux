@@ -1,10 +1,12 @@
-import { useState, useRef, ChangeEvent, FormEvent, FunctionComponent } from 'react';
+import { useState, useRef, ChangeEvent, FormEvent, FunctionComponent, forwardRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { HiddenTitle } from '../Container';
 import Inputs from './Inputs';
-import { addTodo } from '../../redux/modules/todoSlice';
+
 import { FormWrap, Button } from './style';
-import { useAppDispatch } from '../../hooks/useRedux';
+
+import { useRecoilState } from 'recoil';
+import { todoState } from '../../recoil/todo';
 
 export interface TodoType {
   id: string;
@@ -18,7 +20,8 @@ const TodoForm: FunctionComponent = () => {
   const [content, setContent] = useState<string>('');
   const titleInput = useRef<HTMLInputElement | null>(null);
   const contentInput = useRef<HTMLInputElement | null>(null);
-  const dispatch = useAppDispatch();
+
+  const [todos, setTodos] = useRecoilState<TodoType[]>(todoState);
 
   // 제목 입력값 상태 변화
   const changeTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +57,7 @@ const TodoForm: FunctionComponent = () => {
       isDone: false,
     };
 
-    dispatch(addTodo(newTodo));
+    setTodos([...todos, newTodo]);
 
     setTitle('');
     setContent('');
@@ -70,14 +73,14 @@ const TodoForm: FunctionComponent = () => {
           id={'title'}
           value={title}
           onChange={changeTitleHandler}
-          ref={titleInput}
+          valueRef={titleInput as React.ForwardedRef<HTMLInputElement>}
         />
         <Inputs
           label={'내용'}
           id={'contents'}
           value={content}
           onChange={changeContentHandler}
-          ref={contentInput}
+          valueRef={contentInput as React.ForwardedRef<HTMLInputElement>}
         />
         <Button type="submit">추가</Button>
       </form>

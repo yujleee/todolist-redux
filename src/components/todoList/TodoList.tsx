@@ -1,5 +1,5 @@
-import { FunctionComponent } from 'react';
-import { useAppSelector } from '../../hooks/useRedux';
+import { useRecoilValue } from 'recoil';
+import { todoState } from '../../recoil/todo';
 
 import TodoItem from '../todoItem/TodoItem';
 import { TodoListWrap, TodoTitle, List } from './style';
@@ -8,8 +8,9 @@ interface PropsType {
   isActive: boolean;
 }
 
-const TodoList: FunctionComponent<PropsType> = ({ isActive }: PropsType) => {
-  const { todos } = useAppSelector((state) => state.todos);
+const TodoList = ({ isActive }: PropsType) => {
+  //   const { todos } = useAppSelector((state) => state.todos);
+  const todos = useRecoilValue(todoState);
 
   // isActive에 따라 진행중, 완료중 나누어 렌더링
   return (

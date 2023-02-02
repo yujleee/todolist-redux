@@ -6,11 +6,12 @@
 
 🔗  [배포 URL](https://todolist-redux-theta.vercel.app/)
 
-* 리덕스 툴킷을 이용해서 상태관리하는 투두리스트
+* 리코일을 이용해서 상태관리하는 투두리스트
 * 진행기간 : 2022.12.12~13
 
 
 * **✨ 업데이트 : 2023.01.17~18 리덕스 툴킷과 타입스크립트로 리팩토링**
+* **✨ 업데이트 : 2023.02.02 리코일로 리팩토링**
 
 <br/>
 <br/>
@@ -18,7 +19,7 @@
 
 ## 🖥 기술 스택
 
-`React` `Redux-toolkit` `react-router-dom` `Styled-Components` `TypeScript`
+`React` `Recoil` `react-router-dom` `Styled-Components` `TypeScript`
 
 
 <br/>
@@ -62,7 +63,7 @@
   - Container.js : 정렬용 레이아웃 컴포넌트
   - GlobalStyle.js : 전체적인 CSS 설정 컴포넌트
 * pages : 페이지 컴포넌트들
-* redux : 리덕스 관련 설정, 모듈 파일들
+* recoil : 리코일 관련 파일들
 * shared : 라우터 설정 파일
 
 

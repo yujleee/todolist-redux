@@ -9,7 +9,7 @@ import { TodoType } from '../todoForm/TodoForm';
 import { useRecoilState } from 'recoil';
 import { todoState } from '../../recoil/todo';
 
-const TodoDetail: FunctionComponent<TodoType> = ({ id, title, content, isDone }: TodoType) => {
+const TodoDetail: FunctionComponent<TodoType> = ({ id, title, content }: TodoType) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [newTitle, setNewTitle] = useState<string>(title);
   const [newContent, setNewContent] = useState<string>(content);

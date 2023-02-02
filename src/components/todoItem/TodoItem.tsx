@@ -25,7 +25,6 @@ const TodoItem: FunctionComponent<ItemProps> = ({ item }: ItemProps) => {
     });
 
     setTodos(newState);
-    // dispatch(toggleDone({ id }));
   };
 
   // 투두 삭제 핸들러
@@ -33,7 +32,6 @@ const TodoItem: FunctionComponent<ItemProps> = ({ item }: ItemProps) => {
     if (window.confirm('해당 투두를 정말 삭제하시겠습니까?')) {
       const newTodos = todos.filter((todo) => todo.id !== id);
       setTodos(newTodos);
-      //   dispatch(deleteTodo({ id }));
     }
   };
 

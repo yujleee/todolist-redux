@@ -9,7 +9,6 @@ interface PropsType {
 }
 
 const TodoList = ({ isActive }: PropsType) => {
-  //   const { todos } = useAppSelector((state) => state.todos);
   const todos = useRecoilValue(todoState);
 
   // isActive에 따라 진행중, 완료중 나누어 렌더링

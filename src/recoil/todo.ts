@@ -2,11 +2,6 @@ import { atom } from 'recoil';
 import { TodoType } from '../components/todoForm/TodoForm';
 import { v4 as uuid } from 'uuid';
 
-export const inputState = atom<string>({
-  key: 'inputState',
-  default: '',
-});
-
 export const todoState = atom<TodoType[]>({
   key: 'todos',
   default: [

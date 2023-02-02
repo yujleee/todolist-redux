@@ -1,4 +1,4 @@
-import { useState, useRef, ChangeEvent, FormEvent, FunctionComponent, forwardRef } from 'react';
+import { useState, useRef, ChangeEvent, FormEvent, FunctionComponent } from 'react';
 import { v4 as uuid } from 'uuid';
 import { HiddenTitle } from '../Container';
 import Inputs from './Inputs';
